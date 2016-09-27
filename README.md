@@ -1,4 +1,4 @@
-# Language Detector v1.0
+# Language Detector v1.1
 
  This program detects the language of a given input. 
 
@@ -30,4 +30,3 @@
     Russian
     Spanish
     Ukranian
-    
