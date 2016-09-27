@@ -71,18 +71,20 @@ def load_languages():
 def main():
 	language_list = load_languages()
 	closest_match = None
-	user_input = input("Give me a file and I will tell you what language it's in: ")
-	assert os.path.exists(user_input), "I did not find the file at, "+str(user_input)
-	f = open(user_input, 'r+', encoding='UTF-8')
-	train = preprocess(f)		
-	test_bigrams = ngrams(train, 2, 300)
-	for i, (language, train_bigram) in enumerate(language_list):
-		difference = difference_calculator(train_bigram, test_bigrams)
-		if closest_match == None:
-			closest_match = (language, difference)
-		elif difference < closest_match[1]:
-			closest_match = (language, difference)
-	print ("The file is written in " + closest_match[0] + ".")
+	user_input = input("Welcome to Language Detector. Give me a file and I will tell you what language it's in: ")
+	while (user_input != "exit"):
+		assert os.path.exists(user_input), "I did not find the file at, "+str(user_input)
+		f = open(user_input, 'r+', encoding='UTF-8')
+		train = preprocess(f)		
+		test_bigrams = ngrams(train, 2, 300)
+		for i, (language, train_bigram) in enumerate(language_list):
+			difference = difference_calculator(train_bigram, test_bigrams)
+			if closest_match == None:
+				closest_match = (language, difference)
+			elif difference < closest_match[1]:
+				closest_match = (language, difference)
+		print ("The file is written in " + closest_match[0] + ".")
+		user_input = input("Continue inputting files here. Press 'exit' anytime to quit. ")
 
 if __name__ == "__main__":
     main()
