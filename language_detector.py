@@ -28,7 +28,6 @@ def ngrams(input, n, size):
 
 
 def difference_calculator(training, test):	
-	#training_set = dict(training).keys()
 	training_list = [i[0] for i in training]
 	test_list = [i[0] for i in test]
 	DNE_PENALTY = len(training_list)
@@ -83,7 +82,7 @@ def main():
 			closest_match = (language, difference)
 		elif difference < closest_match[1]:
 			closest_match = (language, difference)
-	print (closest_match)
+	print (closest_match[0])
 
 if __name__ == "__main__":
     main()
