@@ -15,9 +15,9 @@ def strip_html(raw_html):
 	for script in soup(["script", "style"]):
 		script.extract()
 	text = soup.get_text()
-	lines = (line.strip() for line in text.splitlines())  						# break into lines and remove leading and trailing space on each
-	chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) 	# break multi-headlines into a line each
-	text = '\n'.join(chunk for chunk in chunks if chunk) 						# drop blank lines
+	lines = (line.strip() for line in text.splitlines())  # break into lines and remove leading and trailing space on each
+	chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
+	text = '\n'.join(chunk for chunk in chunks if chunk)  # drop blank lines
 
 def ngrams(input, n, size):
 	bigrams = [input[i:i+n] for i in range(len(input) - n+1)]
@@ -58,7 +58,7 @@ def preprocess(raw):
 	return processed
 
 def load_languages():
-	path = os.path.dirname(os.path.realpath(__file__))#'C:\\Users\\Kevin\\Desktop\\Language_Detector\\training_data'
+	path = os.path.dirname(os.path.realpath(__file__))
 	language_list = []
 	for filename in glob.glob(os.path.join(path, 'training_data\\*.txt')):
 		f = open(filename, "r", encoding='UTF-8')
