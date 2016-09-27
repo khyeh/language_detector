@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from __future__ import division 
 import nltk, re, io, json, string, collections, glob, os, sys
 from nltk.collocations import *
