@@ -15,13 +15,9 @@ def strip_html(raw_html):
 	for script in soup(["script", "style"]):
 		script.extract()
 	text = soup.get_text()
-	lines = (line.strip() for line in text.splitlines())  # break into lines and remove leading and trailing space on each
-	chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
-	text = '\n'.join(chunk for chunk in chunks if chunk) # drop blank lines
-
-	#text_file = open("C:\\Users\\Kevin\\Desktop\\Language_Detector\\goat.txt", "w", encoding='UTF-8')
-	#text_file.write(text)
-	#text_file.close()
+	lines = (line.strip() for line in text.splitlines())  						# break into lines and remove leading and trailing space on each
+	chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) 	# break multi-headlines into a line each
+	text = '\n'.join(chunk for chunk in chunks if chunk) 						# drop blank lines
 
 def ngrams(input, n, size):
 	bigrams = [input[i:i+n] for i in range(len(input) - n+1)]
@@ -42,7 +38,6 @@ def difference_calculator(training, test):
 			if item2 in training_list:
 				if item2 == item1:
 					total_distance = total_distance + (abs(index2 - index1))
-					#print(index2, "-", index1, " = ", abs(index2-index1))
 					break
 				else:
 					continue
@@ -72,16 +67,11 @@ def load_languages():
 		base = os.path.basename(filename)
 		language_list.append((os.path.splitext(base)[0], bigrams))
 		f.close()
-		#list_of_lists = [list(elem) for elem in language_list]
-		#for i in list_of_lists:
-			#i[0] = os.path.splitext(filename)[0]
-		#new_list = [tuple(l) for l in list_of_lists]
 	return language_list
 
 def main():
 	language_list = load_languages()
 	closest_match = None
-	#f = open('C:\\Users\\Kevin\\Desktop\\Language_Detector\\japanese_test.txt', "r", encoding='UTF-8')
 	user_input = input("Give me a file and I will tell you what language it's in: ")
 	assert os.path.exists(user_input), "I did not find the file at, "+str(user_input)
 	f = open(user_input, 'r+', encoding='UTF-8')
