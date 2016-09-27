@@ -82,7 +82,7 @@ def main():
 			closest_match = (language, difference)
 		elif difference < closest_match[1]:
 			closest_match = (language, difference)
-	print (closest_match[0])
+	print ("The file is written in " + closest_match[0] + ".")
 
 if __name__ == "__main__":
     main()
