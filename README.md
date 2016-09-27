@@ -1,4 +1,4 @@
-# language_detector v 0.1
+# language_detector
 
  This program detects the language of a given input. 
 
