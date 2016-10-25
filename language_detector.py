@@ -69,7 +69,7 @@ def load_languages():
 def main():
 	language_list = load_languages()
 	closest_match = None
-	user_input = input("Welcome to Language Detector. Give me a file and I will tell you what language it's in: ")
+	user_input = input("Welcome to Language Detector. Give me a file and I will tell you what language it's in: \n")
 	assert os.path.exists(user_input), "I did not find the file at, "+str(user_input)
 	f = open(user_input, 'r+', encoding='UTF-8')
 	train = preprocess(f)		
