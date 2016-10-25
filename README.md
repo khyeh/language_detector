@@ -9,6 +9,12 @@
  4. The program will ask for an input. Give the path name of the input and the program will output
     the closest match language.
 
+    Sample Demonstration in Windows Command Prompt:
+    C:\Users\Kevin\Desktop\Language_Detector> python language_detector.py
+    Welcome to the Language Detector. Give me a file and I will tell you what language it's in:
+    C:\Users\Kevin\Desktop\Language_Detector\eng_test.txt
+    The file is written in English.
+
  Language Support
  	The program supports the following languages:
  	Chinese
