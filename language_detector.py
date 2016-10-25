@@ -1,7 +1,6 @@
 from __future__ import division 
-import nltk, re, io, json, string, collections, glob, os, sys
-from nltk.collocations import *
-from bs4 import BeautifulSoup
+import re, io, json, string, collections, glob, os, sys
+#from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from operator import itemgetter
 
@@ -9,15 +8,15 @@ def view_html(raw_html):
 	html_file = urlopen(raw_html).read().decode('utf8')
 	print(html_file)
 
-def strip_html(raw_html):
-	html = urlopen(raw_html).read()
-	soup = BeautifulSoup(html)
-	for script in soup(["script", "style"]):
-		script.extract()
-	text = soup.get_text()
-	lines = (line.strip() for line in text.splitlines())  # break into lines and remove leading and trailing space on each
-	chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
-	text = '\n'.join(chunk for chunk in chunks if chunk)  # drop blank lines
+#def strip_html(raw_html):
+	#html = urlopen(raw_html).read()
+	#soup = BeautifulSoup(html)
+	#for script in soup(["script", "style"]):
+	#	script.extract()
+	#text = soup.get_text()
+	#lines = (line.strip() for line in text.splitlines())  # break into lines and remove leading and trailing space on each
+	#chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
+	#text = '\n'.join(chunk for chunk in chunks if chunk)  # drop blank lines
 
 def ngrams(input, n, size):
 	bigrams = [input[i:i+n] for i in range(len(input) - n+1)]
