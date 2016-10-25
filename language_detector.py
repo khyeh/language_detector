@@ -1,7 +1,5 @@
 from __future__ import division 
-import nltk, re, io, json, string, collections, glob, os, sys
-from nltk.collocations import *
-from bs4 import BeautifulSoup
+import re, io, json, string, collections, glob, os, sys
 from urllib.request import urlopen
 from operator import itemgetter
 
@@ -9,15 +7,15 @@ def view_html(raw_html):
 	html_file = urlopen(raw_html).read().decode('utf8')
 	print(html_file)
 
-def strip_html(raw_html):
-	html = urlopen(raw_html).read()
-	soup = BeautifulSoup(html)
-	for script in soup(["script", "style"]):
-		script.extract()
-	text = soup.get_text()
-	lines = (line.strip() for line in text.splitlines())  # break into lines and remove leading and trailing space on each
-	chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
-	text = '\n'.join(chunk for chunk in chunks if chunk)  # drop blank lines
+#def strip_html(raw_html):
+	#html = urlopen(raw_html).read()
+	#soup = BeautifulSoup(html)
+	#for script in soup(["script", "style"]):
+	#	script.extract()
+	#text = soup.get_text()
+	#lines = (line.strip() for line in text.splitlines())  # break into lines and remove leading and trailing space on each
+	#chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
+	#text = '\n'.join(chunk for chunk in chunks if chunk)  # drop blank lines
 
 def ngrams(input, n, size):
 	bigrams = [input[i:i+n] for i in range(len(input) - n+1)]
@@ -72,19 +70,17 @@ def main():
 	language_list = load_languages()
 	closest_match = None
 	user_input = input("Welcome to Language Detector. Give me a file and I will tell you what language it's in: ")
-	while (user_input != "exit"):
-		assert os.path.exists(user_input), "I did not find the file at, "+str(user_input)
-		f = open(user_input, 'r+', encoding='UTF-8')
-		train = preprocess(f)		
-		test_bigrams = ngrams(train, 2, 300)
-		for i, (language, train_bigram) in enumerate(language_list):
-			difference = difference_calculator(train_bigram, test_bigrams)
-			if closest_match == None:
-				closest_match = (language, difference)
-			elif difference < closest_match[1]:
-				closest_match = (language, difference)
-		print ("The file is written in " + closest_match[0] + ".")
-		user_input = input("Continue inputting files here. Press 'exit' anytime to quit. ")
+	assert os.path.exists(user_input), "I did not find the file at, "+str(user_input)
+	f = open(user_input, 'r+', encoding='UTF-8')
+	train = preprocess(f)		
+	test_bigrams = ngrams(train, 2, 300)
+	for i, (language, train_bigram) in enumerate(language_list):
+		difference = difference_calculator(train_bigram, test_bigrams)
+		if closest_match == None:
+			closest_match = (language, difference)
+		elif difference < closest_match[1]:
+			closest_match = (language, difference)
+	print ("The file is written in " + closest_match[0] + ".")
 
 if __name__ == "__main__":
     main()
