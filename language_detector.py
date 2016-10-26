@@ -1,5 +1,5 @@
 from __future__ import division 
-import re, io, json, string, collections, glob, os, sys
+import re, io, json, string, collections, glob, os, sys, platform
 from urllib.request import urlopen
 from operator import itemgetter
 
@@ -57,7 +57,11 @@ def preprocess(raw):
 def load_languages():
 	path = os.path.dirname(os.path.realpath(__file__))
 	language_list = []
-	for filename in glob.glob(os.path.join(path, 'training_data\\*.txt')):
+	if platform.system() == "Windows":
+		filelist = glob.glob(os.path.join(path, 'training_data\\*.txt'))
+	else:
+		filelist = glob.glob(os.path.join(path, 'training_data/*.txt'))
+	for filename in filelist:
 		f = open(filename, "r", encoding='UTF-8')
 		train = preprocess(f)
 		bigrams = ngrams(train, 2, 300)
